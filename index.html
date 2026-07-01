@@ -1,41 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>System Active</title>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Syne:wght@700;800&display=swap"
+    rel="stylesheet">
   <style>
-    :root { --bg-dark: #07070a; --neon-primary: #00f0ff; --neon-secondary: #ff003c; }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body { font-family: 'Space Grotesk', sans-serif; background-color: var(--bg-dark); color: #fff; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
-    .view { display: none; text-align: center; width: 100%; max-width: 500px; }
-    .view.active { display: block; }
-
-    .cyber-title { font-family: 'Syne', sans-serif; font-size: 3rem; margin-bottom: 20px; }
-    .cyber-title span { color: var(--neon-primary); }
-
-    .clock { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; }
-    .num-wrap { background: #111; padding: 15px; border: 1px solid #333; border-radius: 5px; min-width: 60px; }
-    .num { font-size: 2rem; font-weight: bold; }
-    
-    .text-content { background: #111; padding: 20px; border: 1px solid #333; margin-bottom: 20px; }
-    
-    .carousel-container { position: relative; width: 100%; }
-    #carousel-img { width: 100%; height: auto; border: 2px solid var(--neon-primary); border-radius: 8px; display: block; }
-    
-    .nav-btn {
-      position: absolute; top: 50%; transform: translateY(-50%);
-      background: rgba(0, 240, 255, 0.2); color: var(--neon-primary); border: 1px solid var(--neon-primary);
-      width: 45px; height: 45px; border-radius: 50%; font-size: 20px; cursor: pointer; backdrop-filter: blur(5px);
+    :root {
+      --bg-dark: #07070a;
+      --neon-primary: #00f0ff;
+      --neon-secondary: #ff003c;
     }
-    .prev-btn { left: 10px; }
-    .next-btn { right: 10px; }
 
-    canvas { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 100; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background-color: var(--bg-dark);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .view {
+      display: none;
+      text-align: center;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .view.active {
+      display: block;
+    }
+
+    .cyber-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    .cyber-title span {
+      color: var(--neon-primary);
+    }
+
+    .clock {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    .num-wrap {
+      background: #111;
+      padding: 15px;
+      border: 1px solid #333;
+      border-radius: 5px;
+      min-width: 60px;
+    }
+
+    .num {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    .text-content {
+      background: #111;
+      padding: 20px;
+      border: 1px solid #333;
+      margin-bottom: 20px;
+    }
+
+    .carousel-container {
+      position: relative;
+      width: 100%;
+    }
+
+    #carousel-img {
+      width: 100%;
+      height: auto;
+      border: 2px solid var(--neon-primary);
+      border-radius: 8px;
+      display: block;
+    }
+
+    .nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 240, 255, 0.2);
+      color: var(--neon-primary);
+      border: 1px solid var(--neon-primary);
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      font-size: 20px;
+      cursor: pointer;
+      backdrop-filter: blur(5px);
+    }
+
+    .prev-btn {
+      left: 10px;
+    }
+
+    .next-btn {
+      right: 10px;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 100;
+    }
   </style>
 </head>
+
 <body>
 
   <canvas id="sparks"></canvas>
@@ -43,65 +133,78 @@
   <div id="view-countdown" class="view active">
     <h1 class="cyber-title">SYSTEM <span>INIT</span></h1>
     <div class="clock">
-      <div class="num-wrap"><div class="num" id="d">00</div><small>D</small></div>
-      <div class="num-wrap"><div class="num" id="h">00</div><small>H</small></div>
-      <div class="num-wrap"><div class="num" id="m">00</div><small>M</small></div>
-      <div class="num-wrap"><div class="num" id="s">00</div><small>S</small></div>
+      <div class="num-wrap">
+        <div class="num" id="d">00</div><small>D</small>
+      </div>
+      <div class="num-wrap">
+        <div class="num" id="h">00</div><small>H</small>
+      </div>
+      <div class="num-wrap">
+        <div class="num" id="m">00</div><small>M</small>
+      </div>
+      <div class="num-wrap">
+        <div class="num" id="s">00</div><small>S</small>
+      </div>
     </div>
   </div>
 
   <div id="view-celebration" class="view">
     <div class="text-content">
-      <p>Muitos Parabéns meu amor! Apesar de estarmos longe, aqui fica uma lembrançazinha de mim! Que olhar para essas fotos te traga o mesmo conforto que me traz a mim... <3</p>
+      <p>Muitos Parabéns meu amor! Apesar de estarmos longe, aqui fica uma lembrançazinha de mim! Que olhar para essas
+        fotos te traga o mesmo conforto que me traz a mim... <3< /p>
     </div>
     <div class="carousel-container">
       <button class="nav-btn prev-btn" onclick="changePhoto(-1)">❮</button>
-      <img id="carousel-img" src="https://picsum.photos/600/800?random=1">
+      <img id="carousel-img" src="images/1.jpg">
       <button class="nav-btn next-btn" onclick="changePhoto(1)">❯</button>
     </div>
   </div>
 
   <script>
-    const TARGET_DATE = new Date('2026-06-02T00:00:00').getTime(); // 5 segundos para teste
+    const TARGET_DATE = new Date('2026-06-02T00:00:00Z').getTime();
     let currentPhoto = 1;
 
-    // Atualiza a imagem com base na pasta local
     function updateImage() {
       const imgElement = document.getElementById('carousel-img');
-      // Altera aqui a extensão se as tuas fotos forem .png ou .jpeg
-      imgElement.src = `images/${currentPhoto}.jpg`; 
+      imgElement.src = `images/${currentPhoto}.jpg`;
     }
 
     function changePhoto(dir) {
       currentPhoto += dir;
-      if (currentPhoto > 35) currentPhoto = 1;
-      if (currentPhoto < 1) currentPhoto = 35;
+      // Lógica de loop 1 a 18
+      if (currentPhoto > 18) currentPhoto = 1;
+      if (currentPhoto < 1) currentPhoto = 18;
       updateImage();
     }
-
-    // Inicializa a primeira imagem
-    document.addEventListener('DOMContentLoaded', () => {
-      updateImage();
-    });
 
     function triggerSparks() {
       const canvas = document.getElementById('sparks');
       const ctx = canvas.getContext('2d');
       canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-      let particles = Array.from({ length: 100 }, () => ({
-        x: canvas.width/2, y: canvas.height/2,
-        vx: (Math.random()-0.5)*20, vy: (Math.random()-0.5)*20,
+
+      let particles = Array.from({ length: 120 }, () => ({
+        x: canvas.width / 2, y: canvas.height / 2,
+        vx: (Math.random() - 0.5) * 25, vy: (Math.random() - 0.5) * 25,
         life: 1.0, color: Math.random() > 0.5 ? '#00f0ff' : '#ff003c'
       }));
 
       function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        let alive = false;
         particles.forEach(p => {
-          p.x += p.vx; p.y += p.vy; p.life -= 0.01;
-          ctx.fillStyle = p.color;
-          ctx.beginPath(); ctx.arc(p.x, p.y, 3, 0, Math.PI*2); ctx.fill();
+          if (p.life > 0) {
+            p.x += p.vx; p.y += p.vy; p.life -= 0.015;
+            ctx.fillStyle = p.color;
+            ctx.beginPath(); ctx.arc(p.x, p.y, 3, 0, Math.PI * 2); ctx.fill();
+            alive = true;
+          }
         });
-        if (particles[0].life > 0) requestAnimationFrame(draw);
+
+        if (alive) {
+          requestAnimationFrame(draw);
+        } else {
+          ctx.clearRect(0, 0, canvas.width, canvas.height); // Limpa o canvas no fim
+        }
       }
       draw();
     }
@@ -123,4 +226,5 @@
     tick();
   </script>
 </body>
+
 </html>
